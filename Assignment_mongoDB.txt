@@ -1,0 +1,170 @@
+Ans1-MongoDB is a popular NoSQL database that stores data in flexible, JSON-like documents. It's known for its scalability and ability to handle large amounts of unstructured data.
+non relational database in short-
+->Non-relational databases, or NoSQL databases, use flexible data models, like key-value pairs or JSON documents, to store and retrieve data.
+->it is handle large amount of unstructure data.
+MongoDB is preferred over SQL databases in scenarios where:
+->Schema Flexibility->mongodb provide flexible schema when dealing with unpredictable data structure.
+->Mongodb provide horizantal scalability.
+->It is also handle complex data
+->It is also used in big data and real time application.
+->MongoDB integrates well with cloud platforms.
+
+Ans2-Feature of the mongodb
+->Document-Oriented: MongoDB stores data in flexible, JSON-like BSON documents, allowing for a dynamic schema that can evolve over time.
+->Scalability: It supports horizontal scaling through sharding, enabling the distribution of data across multiple servers for improved performance and capacity.
+->High Performance: MongoDB provides high performance for both read and write operations, making it suitable for high-traffic applications.
+->Indexing: Indexes can be created to optimize query performance and ensure faster data retrieval.
+->Aggregation Framework: MongoDB includes a powerful aggregation framework for performing complex data transformations and analysis on the server side.
+
+
+Ans3- first install pymongo library.
+    pip install pymongo.
+import pymongo
+
+# Connect to MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")  # Assuming MongoDB is running on the default localhost and port
+
+# Create or access a database
+database_name = "mydatabase"
+db = client[database_name]
+
+# Create or access a collection within the database
+collection_name = "mycollection"
+collection = db[collection_name]
+
+# Insert a document into the collection
+data_to_insert = {"name": "John", "age": 30, "city": "New York"}
+insert_result = collection.insert_one(data_to_insert)
+
+# Print the inserted document's ID
+print(f"Inserted document ID: {insert_result.inserted_id}")
+
+# Close the MongoDB connection (optional, as it will be closed when the script exits)
+client.close()
+
+
+Ans4-import pymongo
+
+# Connect to MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+
+# Create or access a database
+database_name = "mydatabase"
+db = client[database_name]
+
+# Create or access a collection within the database
+collection_name = "mycollection"
+collection = db[collection_name]
+
+# Insert one record into the collection
+data_to_insert_one = {"name": "Alice", "age": 25, "city": "Los Angeles"}
+insert_result_one = collection.insert_one(data_to_insert_one)
+print(f"Inserted one record with ID: {insert_result_one.inserted_id}")
+
+# Insert multiple records into the collection
+data_to_insert_many = [
+    {"name": "Bob", "age": 28, "city": "Chicago"},
+    {"name": "Charlie", "age": 35, "city": "San Francisco"}
+]
+insert_result_many = collection.insert_many(data_to_insert_many)
+print(f"Inserted {len(insert_result_many.inserted_ids)} records with IDs: {insert_result_many.inserted_ids}")
+
+# Find and print the inserted records using find_one() and find()
+find_one_result = collection.find_one({"name": "Alice"})
+print("Inserted Record (find_one):", find_one_result)
+
+find_result = collection.find({"age": {"$gte": 30}})
+print("Inserted Records (find):")
+for record in find_result:
+    print(record)
+
+# Close the MongoDB connection (optional, as it will be closed when the script exits)
+client.close()
+
+
+Ans5-
+The find method in MongoDB is used to query documents in a collection. You can provide a query filter to specify the criteria that documents must meet to be included in the result.
+import pymongo
+
+# Connect to MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+
+# Access a database
+database_name = "mydatabase"
+db = client[database_name]
+
+# Access a collection within the database
+collection_name = "mycollection"
+collection = db[collection_name]
+
+# Insert some sample data (for demonstration purposes)
+sample_data = [
+    {"name": "Alice", "age": 25, "city": "Los Angeles"},
+    {"name": "Bob", "age": 28, "city": "Chicago"},
+    {"name": "Charlie", "age": 35, "city": "San Francisco"}
+]
+collection.insert_many(sample_data)
+
+# Use the find method to query the database
+# Find all documents in the collection
+all_documents = collection.find()
+print("All Documents:")
+for doc in all_documents:
+    print(doc)
+
+# Find documents that match a specific criteria (e.g., age greater than 30)
+criteria = {"age": {"$gt": 30}}
+filtered_documents = collection.find(criteria)
+print("\nFiltered Documents (Age > 30):")
+for doc in filtered_documents:
+    print(doc)
+
+# Close the MongoDB connection (optional, as it will be closed when the script exits)
+client.close()In this example, the find method is used to retrieve all documents in the collection and to find documents where the "age" field is greater than 30. Adjust the criteria based on your specific needs.
+
+
+Ans6-The sort method in MongoDB is used to sort the documents in a collection based on one or more fields.
+import pymongo
+
+# Connect to MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+
+# Access a database
+database_name = "mydatabase"
+db = client[database_name]
+
+# Access a collection within the database
+collection_name = "mycollection"
+collection = db[collection_name]
+
+# Insert some sample data (for demonstration purposes)
+sample_data = [
+    {"name": "Alice", "age": 25, "city": "Los Angeles"},
+    {"name": "Bob", "age": 28, "city": "Chicago"},
+    {"name": "Charlie", "age": 35, "city": "San Francisco"}
+]
+collection.insert_many(sample_data)
+
+# Use the sort method to retrieve documents in a sorted order
+# Sort documents by the "name" field in ascending order
+sorted_documents_asc = collection.find().sort("name", pymongo.ASCENDING)
+print("Sorted Documents (Ascending Order by Name):")
+for doc in sorted_documents_asc:
+    print(doc)
+
+# Sort documents by the "age" field in descending order
+sorted_documents_desc = collection.find().sort("age", pymongo.DESCENDING)
+print("\nSorted Documents (Descending Order by Age):")
+for doc in sorted_documents_desc:
+    print(doc)
+
+# Close the MongoDB connection (optional, as it will be closed when the script exits)
+client.close()
+
+
+
+Ans7-
+->delete_one Method:Deletes a single document from a collection that matches the specified. 
+
+->delete_many Method:Deletes multiple documents from a collection that match the specified.
+->drop Method:Drops (deletes) an entire collection from the database.
